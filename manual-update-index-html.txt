@@ -76,7 +76,6 @@
     </div>
 
     <div id="floating-trash" class="empty">&#x1F5D1;&#xFE0F;</div>
-    <div id="order-popup" class="order-popup"></div>
 
     <script src="globals.js"></script>
     <script src="fridge.js"></script>

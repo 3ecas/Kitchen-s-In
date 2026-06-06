@@ -2,7 +2,7 @@
 const stoveRecipes = {
     'raw-meat': 'cooked-meat',
     'raw-fish': 'cooked-fish',
-    'fish-pan': 'cooked-fish-meal',
+    'fish-pot': 'cooked-fish-meal',
     'raw-pasta': 'boiled-pasta',
     'raw-rice': 'cooked-rice'
 };
@@ -10,5 +10,5 @@ const stoveRecipes = {
 installStationDrop(
     'station-stove',
     item => Boolean(stoveRecipes[item]),
-    (slot, item) => startHeating(slot, stoveRecipes[item], item === 'fish-pan' ? 6000 : 4000)
+    (slot, item) => startHeating(slot, stoveRecipes[item], item === 'fish-pot' ? 6000 : 4000)
 );

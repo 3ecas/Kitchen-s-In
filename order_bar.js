@@ -6,7 +6,6 @@ const ORDER_STATE = {
 };
 
 const activeOrdersContainer = document.getElementById('active-orders');
-const orderPopup = document.getElementById('order-popup');
 
 function getAvailableOrders() {
     return Array.isArray(MENU) ? MENU : [];
@@ -27,22 +26,6 @@ function renderActiveOrders() {
     });
 }
 
-function showOrderPopup(order) {
-    if (!orderPopup) return;
-
-    orderPopup.innerHTML = `
-        <span class="order-icon">${ICONS[order.finalItem]}</span>
-        <span>${order.name}</span>
-    `;
-    orderPopup.classList.remove('show');
-    void orderPopup.offsetWidth;
-    orderPopup.classList.add('show');
-
-    setTimeout(() => {
-        orderPopup.classList.remove('show');
-    }, 1800);
-}
-
 function generateIncomingOrder() {
     const orders = getAvailableOrders();
     if (!orders.length || ORDER_STATE.activeOrders.length >= ORDER_STATE.maxOrders) return;
@@ -59,7 +42,6 @@ function generateIncomingOrder() {
     ORDER_STATE.nextId += 1;
     ORDER_STATE.activeOrders.push(order);
     renderActiveOrders();
-    showOrderPopup(order);
 }
 
 function completeOrder(recipe) {

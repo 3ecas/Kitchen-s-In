@@ -24,9 +24,9 @@ const ICONS = {
     'raw-fish': '\u{1F41F}',
     'cooked-fish': '\u{1F41F}',
     'fish-and-chips': '\u{1F41F}\u{1F35F}',
-    'fish-pan': '\u{1F372}',
+    'fish-pot': '\u{1F372}',
     'cooked-fish-meal': '\u{1F372}',
-    'pan': '\u{1F372}',
+    'pot': '\u{1FAD5}',
     'water': '\u{1F4A7}',
     'broccoli': '\u{1F966}',
     'egg': '\u{1F95A}',
@@ -54,6 +54,20 @@ const DISPLAY_ICON_OVERRIDES = {
     'cooked-meat': 'raw-meat',
     'sliced-ham': 'ham'
 };
+
+const READY_MARK_ITEMS = [
+    'sliced-bread',
+    'chopped-tomato',
+    'chopped-lettuce',
+    'cut-potato',
+    'grated-cheese',
+    'sliced-ham',
+    'cooked-meat',
+    'cooked-fish',
+    'fries',
+    'baked-pizza',
+    'cooked-fish-meal'
+];
 
 function getDisplayIcon(itemType) {
     return ICONS[DISPLAY_ICON_OVERRIDES[itemType] || itemType] || '?';
@@ -99,6 +113,9 @@ function fillSlot(slot, itemType, components = [itemType]) {
     clearSlot(slot);
     slot.classList.remove('empty');
     renderSlotContents(slot, itemType, components);
+    if (READY_MARK_ITEMS.includes(itemType)) {
+        slot.innerHTML += `<span class="ready-mark">\u2705</span>`;
+    }
     slot.setAttribute('draggable', 'true');
     slot.addEventListener('dragstart', handleDragStart);
     slot.addEventListener('dragend', resetDragState);
@@ -202,7 +219,10 @@ function installStationDrop(stationId, acceptsItem, onPlaced = () => {}) {
         const item = GAME.draggedItemType;
         const components = GAME.draggedComponents.length ? GAME.draggedComponents : [item];
         const sourceSlot = GAME.draggedFromSlot;
-        const emptySlot = findFirstEmptySlot(station);
+        const targetSlot = event.target.closest('.slot.empty');
+        const emptySlot = targetSlot && station.contains(targetSlot)
+            ? targetSlot
+            : findFirstEmptySlot(station);
 
         if (!item || !emptySlot || !acceptsItem(item)) {
             resetDragState();

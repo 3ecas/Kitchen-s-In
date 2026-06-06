@@ -24,15 +24,15 @@ const assemblyRecipes = [
     },
     {
         result: 'simple-sandwich',
-        ingredients: ['sliced-bread', 'cheese', 'sliced-ham']
+        ingredients: ['sliced-bread', 'grated-cheese', 'sliced-ham']
     },
     {
         result: 'fish-and-chips',
         ingredients: ['cooked-fish', 'fries']
     },
     {
-        result: 'fish-pan',
-        ingredients: ['pan', 'water', 'raw-fish', 'raw-potato', 'broccoli', 'egg']
+        result: 'fish-pot',
+        ingredients: ['pot', 'water', 'raw-fish', 'raw-potato', 'broccoli', 'egg']
     }
 ];
 
@@ -118,5 +118,10 @@ counterSlots.forEach(slot => {
         slot.dataset.components = JSON.stringify([result]);
         renderSlotContents(slot, result, [result]);
         slot.innerHTML += `<span class="ready-mark">\u2705</span>`;
+        slot.setAttribute('draggable', 'true');
+        slot.removeEventListener('dragstart', handleDragStart);
+        slot.addEventListener('dragstart', handleDragStart);
+        slot.removeEventListener('dragend', resetDragState);
+        slot.addEventListener('dragend', resetDragState);
     });
 });
