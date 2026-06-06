@@ -90,6 +90,11 @@ document.getElementById('btn-serve').addEventListener('click', () => {
         return;
     }
 
+    if (typeof completeOrder === 'function' && !completeOrder(recipe)) {
+        alert(`There is no active order for ${recipe.name}.`);
+        return;
+    }
+
     GAME.coins += recipe.reward;
     document.getElementById('coin-count').textContent = GAME.coins;
     plateSlots.forEach(clearSlot);

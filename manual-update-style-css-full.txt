@@ -13,7 +13,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 .game-wrapper { display: grid; grid-template-columns: 220px minmax(360px, 1fr) 260px; flex-grow: 1; gap: 15px; padding: 10px; overflow: hidden; min-height: 0; }
 
 /* --- Sidebar (Orders & Fridge) --- */
-.sidebar, .fridge-bar, .plating-sidebar { background: var(--sidebar-bg); border-radius: var(--border-radius); padding: 15px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+.sidebar, .fridge-bar, .plating-sidebar, .orders-panel { background: var(--sidebar-bg); border-radius: var(--border-radius); padding: 15px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
 .sidebar h2 { font-size: 1.1rem; text-align: center; color: #E08989; border-bottom: 2px dashed #FFF; padding-bottom: 8px; }
 .fridge-bar {
     flex-direction: row;
@@ -37,7 +37,13 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 /* --- Kitchen Grid --- */
 .kitchen-stations { display: grid; grid-template-columns: 1fr; grid-template-rows: repeat(5, minmax(120px, 1fr)); gap: 15px; min-height: 0; overflow-y: auto; }
 .plating-sidebar { background: transparent; padding: 0; overflow: visible; }
-.plating-sidebar #station-plate { height: 100%; }
+.plating-sidebar #station-plate { flex: 1; min-height: 0; }
+.orders-panel {
+    flex-shrink: 0;
+    max-height: 220px;
+    background: #FFFFFF;
+    border: 2px solid var(--accent-pink);
+}
 
 .station { border-radius: var(--border-radius); padding: 15px; box-shadow: 0 6px 10px rgba(0,0,0,0.06); display: flex; flex-direction: column; transition: all 0.2s ease; border: 2px solid transparent; }
 .station.drag-over { background-color: rgba(255,255,255,0.95); border: 2px solid #E08989; transform: scale(1.01); }
@@ -87,11 +93,75 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
     transform: scale(1.06);
 }
 
-/* --- Ticker Bar --- */
-.ticker-wrap { width: 100%; background-color: #2D2424; color: #FFF; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 4px solid var(--accent-pink); margin-bottom: 10px; flex-shrink: 0; }
-.ticker { display: inline-block; padding-left: 100%; animation: ticker-move 30s linear infinite; }
-@keyframes ticker-move { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
-.ticker-item { display: inline-block; padding-right: 4rem; font-size: 1.2rem; font-weight: 800; font-family: 'Courier New', monospace; color: #FFB3B3; }
+/* --- Orders --- */
+.active-orders {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.order-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #FFF5F5;
+    border: 2px solid #FFE4E4;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 900;
+    animation: order-slide-in 0.35s ease both;
+}
+
+.order-card:first-child {
+    border-color: #E08989;
+    background: #FFFFFF;
+}
+
+.order-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.order-name {
+    font-size: 0.95rem;
+}
+
+.order-popup {
+    position: fixed;
+    top: 18px;
+    right: 24px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #2D2424;
+    color: #FFFFFF;
+    border: 4px solid #FFFFFF;
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+    font-weight: 900;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-18px) scale(0.96);
+}
+
+.order-popup.show {
+    animation: order-pop 1.8s ease both;
+}
+
+@keyframes order-slide-in {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes order-pop {
+    0% { opacity: 0; transform: translateY(-18px) scale(0.96); }
+    18% { opacity: 1; transform: translateY(0) scale(1.03); }
+    32% { transform: translateY(0) scale(1); }
+    78% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-12px) scale(0.98); }
+}
 
 /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 950px) {
