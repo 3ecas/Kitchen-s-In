@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Chef Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="ticker-wrap">
+        <div class="ticker" id="order-ticker"></div>
+    </div>
+
+    <section class="fridge-bar">
+        <h2>&#x2744;&#xFE0F; Fridge</h2>
+        <ul class="ingredient-list" id="fridge-list"></ul>
+    </section>
+
+    <div class="game-wrapper">
+        <aside class="sidebar left-sidebar">
+            <div class="score-board"><h2>&#x1F4B0; <span id="coin-count">0</span></h2></div>
+            <h2>&#x1F4DC; Recipes</h2>
+            <div class="recipe-card" id="recipe-list"></div>
+        </aside>
+
+        <main class="kitchen-stations">
+            <section class="station" id="station-counter">
+                <div class="station-header"><h2>&#x1F52A; Counter</h2></div>
+                <div class="slots-container" data-station="counter">
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                </div>
+            </section>
+
+            <section class="station" id="station-pan">
+                <div class="station-header"><h2>&#x1F373; Pan</h2></div>
+                <div class="slots-container" data-station="pan">
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                </div>
+            </section>
+
+            <section class="station" id="station-stove">
+                <div class="station-header"><h2>&#x1F373; Stove</h2></div>
+                <div class="slots-container" data-station="stove">
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                </div>
+            </section>
+
+            <section class="station" id="station-oven">
+                <div class="station-header"><h2>&#x1F525; Oven</h2></div>
+                <div class="slots-container" data-station="oven">
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                </div>
+            </section>
+
+            <section class="station" id="station-fryer">
+                <div class="station-header"><h2>&#x1F6E2;&#xFE0F; Fryer</h2></div>
+                <div class="slots-container" data-station="fryer">
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="plating-sidebar">
+            <section class="station" id="station-plate">
+                <div class="station-header"><h2>&#x1F37D;&#xFE0F; Plate</h2></div>
+                <div class="slots-container" data-station="plate">
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                </div>
+                <button class="serve-btn" id="btn-serve">
+                    <span aria-hidden="true">&#x1F37D;&#xFE0F;</span> Serve Dish
+                </button>
+            </section>
+        </aside>
+    </div>
+
+    <div id="floating-trash" class="empty">&#x1F5D1;&#xFE0F;</div>
+
+    <script src="globals.js"></script>
+    <script src="fridge.js"></script>
+    <script src="counter.js"></script>
+    <script src="pan.js"></script>
+    <script src="stove.js"></script>
+    <script src="oven.js"></script>
+    <script src="fryer.js"></script>
+    <script src="plating.js"></script>
+    <script src="order_bar.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

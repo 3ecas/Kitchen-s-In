@@ -1,0 +1,268 @@
+:root {
+    --bg-main: #FFF5F5; --sidebar-bg: #FFE5E5; --station-bg: #FFFFFF;
+    --text-dark: #5C3D3D; --text-light: #9B7E7E;
+    --accent-blue: #D6E6FF; --accent-pink: #FFD6E8; --accent-green: #D6FFEA; 
+    --accent-yellow: #FFF3D6; --accent-orange: #FFE4D6;
+    --border-radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var(--text-dark); height: 100vh; padding: 10px; user-select: none; display: flex; flex-direction: column; }
+
+/* --- Layout --- */
+.game-wrapper { display: grid; grid-template-columns: 220px minmax(360px, 1fr) 260px; flex-grow: 1; gap: 15px; padding: 10px; overflow: hidden; min-height: 0; }
+
+/* --- Sidebar (Orders & Fridge) --- */
+.sidebar, .fridge-bar, .plating-sidebar { background: var(--sidebar-bg); border-radius: var(--border-radius); padding: 15px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+.sidebar h2 { font-size: 1.1rem; text-align: center; color: #E08989; border-bottom: 2px dashed #FFF; padding-bottom: 8px; }
+.fridge-bar {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin: 0 10px 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.fridge-bar h2 {
+    font-size: 1.05rem;
+    color: #E08989;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.recipe-card { background: var(--station-bg); padding: 12px; border-radius: 10px; border: 2px solid var(--accent-pink); }
+.ingredient-list { list-style: none; display: flex; flex-direction: row; gap: 10px; }
+.ingredient-item { background: var(--station-bg); border-radius: 10px; padding: 10px; display: flex; align-items: center; gap: 10px; cursor: grab; font-weight: 800; font-size: 0.9rem; box-shadow: 0 3px 6px rgba(0,0,0,0.05); }
+.ingredient-item .icon { font-size: 1.5rem; }
+
+/* --- Kitchen Grid --- */
+.kitchen-stations { display: grid; grid-template-columns: 1fr; grid-template-rows: repeat(5, minmax(120px, 1fr)); gap: 15px; min-height: 0; overflow-y: auto; }
+.plating-sidebar { background: transparent; padding: 0; overflow: visible; }
+.plating-sidebar #station-plate { height: 100%; }
+
+.station { border-radius: var(--border-radius); padding: 15px; box-shadow: 0 6px 10px rgba(0,0,0,0.06); display: flex; flex-direction: column; transition: all 0.2s ease; border: 2px solid transparent; }
+.station.drag-over { background-color: rgba(255,255,255,0.95); border: 2px solid #E08989; transform: scale(1.01); }
+
+#floating-trash {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    background: #2D2424;
+    border: 4px solid #FFFFFF;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    cursor: grab;
+    z-index: 50;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#floating-trash.drag-over {
+    background: #E08989;
+    transform: scale(1.12);
+}
+
+/* Station Positioning */
+#station-counter { background: var(--accent-blue); }
+#station-pan { background: #D8F4FF; }
+#station-stove { background: var(--accent-pink); }
+#station-oven { background: var(--accent-yellow); }
+#station-fryer { background: var(--accent-orange); }
+#station-plate { background: var(--accent-green); }
+
+.station-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed rgba(0,0,0,0.1); padding-bottom: 8px; margin-bottom: 12px; }
+.station-header h2 { font-size: 1.1rem; }
+
+/* --- Slots --- */
+.slots-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-content: flex-start; }
+.slot { width: 70px; height: 70px; background: rgba(255,255,255,0.7); border: 3px dashed rgba(0,0,0,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; cursor: pointer; position: relative; }
+.slot.slot-combine-target {
+    border-color: #6BD4A1;
+    background: #FFFFFF;
+    transform: scale(1.06);
+}
+
+/* --- Ticker Bar --- */
+.ticker-wrap { width: 100%; background-color: #2D2424; color: #FFF; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 4px solid var(--accent-pink); margin-bottom: 10px; flex-shrink: 0; }
+.ticker { display: inline-block; padding-left: 100%; animation: ticker-move 30s linear infinite; }
+@keyframes ticker-move { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+.ticker-item { display: inline-block; padding-right: 4rem; font-size: 1.2rem; font-weight: 800; font-family: 'Courier New', monospace; color: #FFB3B3; }
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 950px) {
+    .game-wrapper { grid-template-columns: 1fr; height: auto; overflow: visible; }
+    .kitchen-stations { grid-template-columns: 1fr; grid-template-rows: none; overflow: visible; }
+    .plating-sidebar #station-plate { height: auto; }
+    .sidebar { max-height: 200px; }
+}
+
+@media (max-width: 600px) {
+    .fridge-bar { align-items: flex-start; flex-direction: column; }
+    .ingredient-list { width: 100%; overflow-x: auto; }
+    .slot { width: 50px; height: 50px; font-size: 1.5rem; }
+}
+
+.ready-mark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* This centers it perfectly */
+    background: #6BD4A1;
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    z-index: 10;
+    pointer-events: none; /* Ensures the icon underneath stays clickable */
+    border: 2px solid white; /* Adds a clean pop */
+}
+
+/* --- Cute & Bouncy Serve Button --- */
+.serve-btn {
+    width: 100%;
+    /* Pastel Pink to Baby Blue gradient */
+    background: linear-gradient(135deg, #FFD1FF, #B6F3FF);
+    color: #7B68EE; /* Soft purple text */
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    padding: 12px;
+    border-radius: 50px; /* Pill shape */
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 15px;
+    cursor: pointer;
+    /* Soft glow shadow */
+    box-shadow: 0 4px 15px rgba(255, 209, 255, 0.6);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.serve-btn:hover {
+    transform: scale(1.05); /* Gentle bounce effect */
+    background: linear-gradient(135deg, #FFC0FF, #A0E9FF);
+}
+
+.serve-btn:active {
+    transform: scale(0.95); /* Squish effect */
+}
+/* --- Recipe List Styling --- */
+.recipe-entry {
+    background: #FFF;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px; /* Space between recipes */
+    border: 2px solid #FFE4E4;
+    display: flex;
+    flex-direction: column; /* Stacks name and ingredients */
+    gap: 5px;
+}
+
+.recipe-title {
+    font-weight: 900;
+    font-size: 1rem;
+    color: #5C3D3D;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.recipe-final-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.reward-tag {
+    color: #E08989;
+    font-size: 0.8rem;
+}
+
+.recipe-needs {
+    font-size: 1.45rem; /* Makes icons nice and clear */
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+/* --- Progress Bar Styling --- */
+.progress-container { 
+    width: 90%; 
+    height: 8px; 
+    background: #eee; 
+    border-radius: 4px; 
+    position: absolute; 
+    bottom: 5px; /* Sits 5px from the bottom of the slot */
+    left: 5%;    /* Centers the bar */
+    overflow: hidden; 
+    z-index: 5;
+}
+
+.progress-fill { 
+    height: 100%; 
+    width: 0%; 
+    background: #FFC043; 
+    transition: 0.1s linear; 
+}
+
+/* Ensure slots can house absolute children */
+.slot { 
+    position: relative; /* Essential for progress bar placement */
+    overflow: hidden; 
+}
+
+/* Slot item visuals */
+.slot-contents {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    line-height: 1;
+}
+
+.slot-contents.grouped {
+    top: 8px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    border: 2px solid rgba(92,61,61,0.15);
+}
+
+.slot-contents.grouped span {
+    position: absolute;
+    font-size: 1.15rem;
+}
+
+.slot-contents.grouped span:nth-child(1) {
+    transform: translate(0, -15px);
+}
+
+.slot-contents.grouped span:nth-child(2) {
+    transform: translate(14px, 9px);
+}
+
+.slot-contents.grouped span:nth-child(3) {
+    transform: translate(-14px, 9px);
+}
+
+.slot-contents.grouped span:nth-child(4) {
+    transform: translate(15px, -7px);
+}
+
+.slot-contents.grouped span:nth-child(5) {
+    transform: translate(-15px, -7px);
+}
