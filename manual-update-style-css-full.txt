@@ -23,6 +23,28 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
     overflow-x: auto;
     overflow-y: hidden;
 }
+.orders-panel {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin: 0 10px 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-height: none;
+    background: #FFFFFF;
+    border: 2px solid var(--accent-pink);
+}
+
+.orders-panel .station-header {
+    border-bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.orders-panel .station-header h2 {
+    white-space: nowrap;
+}
 .fridge-bar h2 {
     font-size: 1.05rem;
     color: #E08989;
@@ -38,12 +60,6 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 .kitchen-stations { display: grid; grid-template-columns: 1fr; grid-template-rows: repeat(5, minmax(120px, 1fr)); gap: 15px; min-height: 0; overflow-y: auto; }
 .plating-sidebar { background: transparent; padding: 0; overflow: visible; }
 .plating-sidebar #station-plate { flex: 1; min-height: 0; }
-.orders-panel {
-    flex-shrink: 0;
-    max-height: 220px;
-    background: #FFFFFF;
-    border: 2px solid var(--accent-pink);
-}
 
 .station { border-radius: var(--border-radius); padding: 15px; box-shadow: 0 6px 10px rgba(0,0,0,0.06); display: flex; flex-direction: column; transition: all 0.2s ease; border: 2px solid transparent; }
 .station.drag-over { background-color: rgba(255,255,255,0.95); border: 2px solid #E08989; transform: scale(1.01); }
@@ -96,7 +112,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 /* --- Orders --- */
 .active-orders {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 8px;
 }
 
@@ -109,6 +125,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
     border-radius: 10px;
     padding: 10px;
     font-weight: 900;
+    min-width: 150px;
     animation: order-slide-in 0.35s ease both;
 }
 
@@ -172,8 +189,8 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 }
 
 @media (max-width: 600px) {
-    .fridge-bar { align-items: flex-start; flex-direction: column; }
-    .ingredient-list { width: 100%; overflow-x: auto; }
+    .fridge-bar, .orders-panel { align-items: flex-start; flex-direction: column; }
+    .ingredient-list, .active-orders { width: 100%; overflow-x: auto; }
     .slot { width: 50px; height: 50px; font-size: 1.5rem; }
 }
 

@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <section class="orders-panel">
+        <div class="station-header"><h2>&#x1F514; Orders</h2></div>
+        <div class="active-orders" id="active-orders"></div>
+    </section>
+
     <section class="fridge-bar">
         <h2>&#x2744;&#xFE0F; Fridge</h2>
         <ul class="ingredient-list" id="fridge-list"></ul>
@@ -63,11 +68,6 @@
         </main>
 
         <aside class="plating-sidebar">
-            <section class="orders-panel">
-                <div class="station-header"><h2>&#x1F514; Orders</h2></div>
-                <div class="active-orders" id="active-orders"></div>
-            </section>
-
             <section class="station" id="station-plate">
                 <div class="station-header"><h2>&#x1F37D;&#xFE0F; Plate</h2></div>
                 <div class="slots-container" data-station="plate">

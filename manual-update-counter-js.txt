@@ -23,7 +23,7 @@ const assemblyRecipes = [
     },
     {
         result: 'simple-sandwich',
-        ingredients: ['cheese', 'ham']
+        ingredients: ['sliced-bread', 'cheese', 'ham']
     },
     {
         result: 'fish-and-chips',
