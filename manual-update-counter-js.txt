@@ -4,7 +4,8 @@ const counterRecipes = {
     'raw-tomato': 'chopped-tomato',
     'raw-lettuce': 'chopped-lettuce',
     'raw-potato': 'cut-potato',
-    'cheese': 'grated-cheese'
+    'cheese': 'grated-cheese',
+    'ham': 'sliced-ham'
 };
 
 const counterSlots = document.querySelectorAll('#station-counter .slot');
@@ -23,7 +24,7 @@ const assemblyRecipes = [
     },
     {
         result: 'simple-sandwich',
-        ingredients: ['sliced-bread', 'cheese', 'ham']
+        ingredients: ['sliced-bread', 'cheese', 'sliced-ham']
     },
     {
         result: 'fish-and-chips',

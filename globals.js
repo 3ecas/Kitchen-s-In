@@ -32,6 +32,7 @@ const ICONS = {
     'cheese': '\u{1F9C0}',
     'grated-cheese': '\u{1F9C0}',
     'ham': '\u{1F953}',
+    'sliced-ham': '\u{1F953}',
     'assembly': '\u{1F372}',
     'pizza-base': '\u{1F95F}',
     'hamburger': '\u{1F354}',
@@ -49,7 +50,8 @@ const GAME = {
 
 const DISPLAY_ICON_OVERRIDES = {
     'sliced-bread': 'raw-bread',
-    'cooked-meat': 'raw-meat'
+    'cooked-meat': 'raw-meat',
+    'sliced-ham': 'ham'
 };
 
 function getDisplayIcon(itemType) {

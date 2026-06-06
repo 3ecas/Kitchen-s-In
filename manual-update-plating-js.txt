@@ -24,7 +24,7 @@ const MENU = [
     {
         name: 'Simple Sandwich',
         finalItem: 'simple-sandwich',
-        prepRequires: ['sliced-bread', 'cheese', 'ham'],
+        prepRequires: ['sliced-bread', 'cheese', 'sliced-ham'],
         requires: ['simple-sandwich'],
         reward: 15
     },
