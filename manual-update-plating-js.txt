@@ -41,6 +41,20 @@ const MENU = [
         prepRequires: ['pot', 'water', 'raw-fish', 'raw-potato', 'broccoli', 'egg'],
         requires: ['cooked-fish-meal'],
         reward: 45
+    },
+    {
+        name: 'Sushi',
+        finalItem: 'sushi',
+        prepRequires: ['pot', 'water', 'raw-rice', 'cut-fish'],
+        requires: ['sushi'],
+        reward: 30
+    },
+    {
+        name: 'Fried Chicken',
+        finalItem: 'fried-chicken-plate',
+        prepRequires: ['raw-chicken', 'raw-potato', 'pot', 'water', 'raw-rice'],
+        requires: ['fried-chicken-plate'],
+        reward: 45
     }
 ];
 
@@ -107,7 +121,7 @@ function showServeBurst(x, y, coins) {
 
 function canPlate(item) {
     if (!item) return false;
-    if (item === 'dough' || item === 'assembly' || item === 'pizza-base' || item === 'fish-pot' || item === 'cut-potato' || item === 'burnt-food') return false;
+    if (item === 'dough' || item === 'assembly' || item === 'pizza-base' || item === 'fish-pot' || item === 'rice-pot' || item === 'cut-potato' || item === 'burnt-food') return false;
     return !item.startsWith('raw-');
 }
 

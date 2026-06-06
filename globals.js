@@ -4,6 +4,8 @@ const ICONS = {
     'sliced-bread': '\u{1F96A}',
     'raw-meat': '\u{1F969}',
     'cooked-meat': '\u{1F354}',
+    'raw-chicken': '\u{1F357}',
+    'fried-chicken': '\u{1F357}',
     'raw-potato': '\u{1F954}',
     'cut-potato': '\u{1F954}',
     'fries': '\u{1F35F}',
@@ -22,9 +24,12 @@ const ICONS = {
     'raw-shrimp': '\u{1F990}',
     'fried-shrimp': '\u{1F364}',
     'raw-fish': '\u{1F41F}',
+    'cut-fish': '\u{1F41F}',
     'cooked-fish': '\u{1F41F}',
     'fish-and-chips': '\u{1F41F}\u{1F35F}',
+    'fried-chicken-plate': '\u{1F357}\u{1F35A}\u{1F35F}',
     'fish-pot': '\u{1F372}',
+    'rice-pot': '\u{1F372}',
     'cooked-fish-meal': '\u{1F372}',
     'pot': '\u{1FAD5}',
     'water': '\u{1F4A7}',
@@ -39,6 +44,7 @@ const ICONS = {
     'hamburger': '\u{1F354}',
     'salad': '\u{1F957}',
     'simple-sandwich': '\u{1F96A}',
+    'sushi': '\u{1F363}',
     'burnt-food': '\u{1F5D1}\uFE0F'
 };
 
@@ -52,7 +58,8 @@ const GAME = {
 const DISPLAY_ICON_OVERRIDES = {
     'sliced-bread': 'raw-bread',
     'cooked-meat': 'raw-meat',
-    'sliced-ham': 'ham'
+    'sliced-ham': 'ham',
+    'cut-fish': 'raw-fish'
 };
 
 const READY_MARK_ITEMS = [
@@ -62,9 +69,12 @@ const READY_MARK_ITEMS = [
     'cut-potato',
     'grated-cheese',
     'sliced-ham',
+    'cut-fish',
     'cooked-meat',
     'cooked-fish',
+    'cooked-rice',
     'fries',
+    'fried-chicken',
     'baked-pizza',
     'cooked-fish-meal'
 ];
@@ -98,7 +108,7 @@ function getSlotComponents(slot) {
 }
 
 function renderSlotContents(slot, itemType, components = [itemType]) {
-    const visibleComponents = ['hamburger', 'salad', 'simple-sandwich', 'fish-and-chips', 'cooked-fish-meal'].includes(itemType)
+    const visibleComponents = ['hamburger', 'salad', 'simple-sandwich', 'fish-and-chips', 'fried-chicken-plate', 'cooked-fish-meal', 'sushi'].includes(itemType)
         ? [itemType]
         : components.map(component => DISPLAY_ICON_OVERRIDES[component] || component);
     const icons = visibleComponents.map(component => `<span>${ICONS[component] || '?'}</span>`).join('');

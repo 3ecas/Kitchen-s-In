@@ -4,6 +4,7 @@ const counterRecipes = {
     'raw-tomato': 'chopped-tomato',
     'raw-lettuce': 'chopped-lettuce',
     'raw-potato': 'cut-potato',
+    'raw-fish': 'cut-fish',
     'cheese': 'grated-cheese',
     'ham': 'sliced-ham'
 };
@@ -33,6 +34,18 @@ const assemblyRecipes = [
     {
         result: 'fish-pot',
         ingredients: ['pot', 'water', 'raw-fish', 'raw-potato', 'broccoli', 'egg']
+    },
+    {
+        result: 'rice-pot',
+        ingredients: ['pot', 'water', 'raw-rice']
+    },
+    {
+        result: 'sushi',
+        ingredients: ['cooked-rice', 'cut-fish']
+    },
+    {
+        result: 'fried-chicken-plate',
+        ingredients: ['fried-chicken', 'cooked-rice', 'fries']
     }
 ];
 

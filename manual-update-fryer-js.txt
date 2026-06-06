@@ -1,6 +1,7 @@
 // fryer.js
 const fryerRecipes = {
     'cut-potato': 'fries',
+    'raw-chicken': 'fried-chicken',
     'raw-shrimp': 'fried-shrimp'
 };
 

@@ -10,19 +10,11 @@
 body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var(--text-dark); height: 100vh; padding: 10px; user-select: none; display: flex; flex-direction: column; }
 
 /* --- Layout --- */
-.game-wrapper { display: grid; grid-template-columns: 220px minmax(360px, 1fr) 260px; flex-grow: 1; gap: 15px; padding: 10px; overflow: hidden; min-height: 0; }
+.game-wrapper { display: grid; grid-template-columns: 210px 190px minmax(360px, 1fr) 260px; flex-grow: 1; gap: 15px; padding: 10px; overflow: hidden; min-height: 0; }
 
 /* --- Sidebar (Orders & Fridge) --- */
-.sidebar, .fridge-bar, .plating-sidebar, .orders-panel { background: var(--sidebar-bg); border-radius: var(--border-radius); padding: 15px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+.sidebar, .plating-sidebar, .orders-panel { background: var(--sidebar-bg); border-radius: var(--border-radius); padding: 15px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
 .sidebar h2 { font-size: 1.1rem; text-align: center; color: #E08989; border-bottom: 2px dashed #FFF; padding-bottom: 8px; }
-.fridge-bar {
-    flex-direction: row;
-    align-items: center;
-    flex-shrink: 0;
-    margin: 0 10px 10px;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
 .orders-panel {
     flex-direction: row;
     align-items: center;
@@ -45,16 +37,55 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 .orders-panel .station-header h2 {
     white-space: nowrap;
 }
-.fridge-bar h2 {
-    font-size: 1.05rem;
-    color: #E08989;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
 .recipe-card { background: var(--station-bg); padding: 12px; border-radius: 10px; border: 2px solid var(--accent-pink); }
-.ingredient-list { list-style: none; display: flex; flex-direction: row; gap: 10px; }
-.ingredient-item { background: var(--station-bg); border-radius: 10px; padding: 10px; display: flex; align-items: center; gap: 10px; cursor: grab; font-weight: 800; font-size: 0.9rem; box-shadow: 0 3px 6px rgba(0,0,0,0.05); }
-.ingredient-item .icon { font-size: 1.5rem; }
+.fridge-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.fridge-tab {
+    border: 0;
+    border-radius: 8px;
+    background: #FFFFFF;
+    color: #E08989;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.72rem;
+    font-weight: 900;
+    padding: 6px 8px;
+}
+.fridge-tab.active {
+    background: #E08989;
+    color: #FFFFFF;
+}
+.ingredient-list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.fridge-section {
+    list-style: none;
+    background: rgba(255,255,255,0.58);
+    border: 2px solid rgba(255,255,255,0.7);
+    border-radius: 10px;
+    padding: 6px;
+    width: 100%;
+}
+.fridge-section:has(.fridge-section-items .ingredient-item:nth-child(3)) {
+    grid-column: 1 / -1;
+}
+.fridge-section h3 {
+    color: #E08989;
+    font-size: 0.68rem;
+    font-weight: 900;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+.fridge-section-items {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 5px;
+}
+.ingredient-item { background: var(--station-bg); border-radius: 8px; padding: 6px; display: flex; align-items: center; gap: 6px; cursor: grab; font-weight: 800; font-size: 0.72rem; box-shadow: 0 3px 6px rgba(0,0,0,0.05); min-width: 0; }
+.ingredient-item .icon { font-size: 1.1rem; line-height: 1; }
+.ingredient-item .ing-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* --- Kitchen Grid --- */
 .kitchen-stations { display: grid; grid-template-columns: 1fr; grid-template-rows: repeat(4, minmax(130px, 1fr)); gap: 15px; min-height: 0; overflow-y: auto; }
@@ -172,8 +203,8 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 }
 
 @media (max-width: 600px) {
-    .fridge-bar, .orders-panel { align-items: flex-start; flex-direction: column; }
-    .ingredient-list, .active-orders { width: 100%; overflow-x: auto; }
+    .orders-panel { align-items: flex-start; flex-direction: column; }
+    .active-orders { width: 100%; overflow-x: auto; }
     .slot { width: 50px; height: 50px; font-size: 1.5rem; }
 }
 
@@ -227,18 +258,18 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 /* --- Recipe List Styling --- */
 .recipe-entry {
     background: #FFF;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 15px; /* Space between recipes */
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 10px; /* Space between recipes */
     border: 2px solid #FFE4E4;
     display: flex;
     flex-direction: column; /* Stacks name and ingredients */
-    gap: 5px;
+    gap: 4px;
 }
 
 .recipe-title {
     font-weight: 900;
-    font-size: 1rem;
+    font-size: 0.86rem;
     color: #5C3D3D;
     text-align: center;
     display: flex;
@@ -248,7 +279,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 }
 
 .recipe-final-icon {
-    font-size: 1.5rem;
+    font-size: 1.18rem;
     line-height: 1;
 }
 
@@ -258,10 +289,10 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 }
 
 .recipe-needs {
-    font-size: 1.45rem; /* Makes icons nice and clear */
+    font-size: 1.08rem; /* Makes icons nice and clear */
     display: flex;
     justify-content: center;
-    gap: 4px;
+    gap: 3px;
 }
 /* --- Progress Bar Styling --- */
 .progress-container { 
