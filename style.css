@@ -57,7 +57,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 .ingredient-item .icon { font-size: 1.5rem; }
 
 /* --- Kitchen Grid --- */
-.kitchen-stations { display: grid; grid-template-columns: 1fr; grid-template-rows: repeat(5, minmax(120px, 1fr)); gap: 15px; min-height: 0; overflow-y: auto; }
+.kitchen-stations { display: grid; grid-template-columns: 1fr; grid-template-rows: repeat(4, minmax(130px, 1fr)); gap: 15px; min-height: 0; overflow-y: auto; }
 .plating-sidebar { background: transparent; padding: 0; overflow: visible; }
 .plating-sidebar #station-plate { flex: 1; min-height: 0; }
 
@@ -91,7 +91,6 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 
 /* Station Positioning */
 #station-counter { background: var(--accent-blue); }
-#station-pan { background: #D8F4FF; }
 #station-stove { background: var(--accent-pink); }
 #station-oven { background: var(--accent-yellow); }
 #station-fryer { background: var(--accent-orange); }
@@ -352,4 +351,8 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var
 
 .slot-contents.grouped span:nth-child(5) {
     transform: translate(-15px, -7px);
+}
+
+.slot-contents.grouped span:nth-child(6) {
+    transform: translate(0, 15px);
 }

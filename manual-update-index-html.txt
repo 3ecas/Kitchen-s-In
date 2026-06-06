@@ -31,14 +31,8 @@
                 <div class="slots-container" data-station="counter">
                     <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
                     <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                </div>
-            </section>
-
-            <section class="station" id="station-pan">
-                <div class="station-header"><h2>&#x1F373; Pan</h2></div>
-                <div class="slots-container" data-station="pan">
                     <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    <div class="slot empty"></div><div class="slot empty"></div>
                 </div>
             </section>
 
@@ -87,7 +81,6 @@
     <script src="globals.js"></script>
     <script src="fridge.js"></script>
     <script src="counter.js"></script>
-    <script src="pan.js"></script>
     <script src="stove.js"></script>
     <script src="oven.js"></script>
     <script src="fryer.js"></script>

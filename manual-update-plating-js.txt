@@ -38,7 +38,7 @@ const MENU = [
     {
         name: 'Cooked Fish',
         finalItem: 'cooked-fish-meal',
-        prepRequires: ['water', 'raw-fish', 'raw-potato', 'broccoli', 'egg'],
+        prepRequires: ['pan', 'water', 'raw-fish', 'raw-potato', 'broccoli', 'egg'],
         requires: ['cooked-fish-meal'],
         reward: 45
     }

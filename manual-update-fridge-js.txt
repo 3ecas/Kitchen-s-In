@@ -8,6 +8,7 @@ const startingIngredients = [
     'raw-fish',
     'broccoli',
     'egg',
+    'pan',
     'water',
     'cheese',
     'ham',

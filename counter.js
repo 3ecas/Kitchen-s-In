@@ -29,6 +29,10 @@ const assemblyRecipes = [
     {
         result: 'fish-and-chips',
         ingredients: ['cooked-fish', 'fries']
+    },
+    {
+        result: 'fish-pan',
+        ingredients: ['pan', 'water', 'raw-fish', 'raw-potato', 'broccoli', 'egg']
     }
 ];
 
