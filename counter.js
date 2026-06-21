@@ -88,6 +88,7 @@ function canJoinAssembly(slot) {
 
 function joinAssemblyIngredients(slot) {
     const sourceSlot = GAME.draggedFromSlot;
+    const fromInventory = GAME.draggedFromInventory;
     const currentComponents = getSlotComponents(slot);
     const draggedComponents = GAME.draggedComponents.length ? GAME.draggedComponents : [GAME.draggedItemType];
     const joinedComponents = [...new Set([...currentComponents, ...draggedComponents])];
@@ -97,6 +98,10 @@ function joinAssemblyIngredients(slot) {
 
     if (sourceSlot && sourceSlot !== slot) {
         clearSlot(sourceSlot);
+    }
+
+    if (fromInventory && typeof consumeInventory === 'function') {
+        consumeInventory(GAME.draggedItemType, 1);
     }
 
     resetDragState();

@@ -21,6 +21,7 @@ const ICONS = {
     'boiled-pasta': '\u{1F35D}',
     'raw-rice': '\u{1F33E}',
     'cooked-rice': '\u{1F35A}',
+    'wheat': '\u{1F33E}',
     'raw-shrimp': '\u{1F990}',
     'fried-shrimp': '\u{1F364}',
     'raw-fish': '\u{1F41F}',
@@ -50,9 +51,11 @@ const ICONS = {
 
 const GAME = {
     coins: 0,
+    inventory: {},
     draggedItemType: null,
     draggedComponents: [],
-    draggedFromSlot: null
+    draggedFromSlot: null,
+    draggedFromInventory: false
 };
 
 const DISPLAY_ICON_OVERRIDES = {
@@ -150,6 +153,7 @@ function handleDragStart(event) {
     GAME.draggedItemType = event.currentTarget.dataset.item;
     GAME.draggedComponents = getSlotComponents(event.currentTarget);
     GAME.draggedFromSlot = event.currentTarget;
+    GAME.draggedFromInventory = false;
     event.dataTransfer.effectAllowed = 'move';
 }
 
@@ -157,6 +161,7 @@ function resetDragState() {
     GAME.draggedItemType = null;
     GAME.draggedComponents = [];
     GAME.draggedFromSlot = null;
+    GAME.draggedFromInventory = false;
 }
 
 function startHeating(slot, finalItem, timeToCook) {
@@ -229,12 +234,13 @@ function installStationDrop(stationId, acceptsItem, onPlaced = () => {}) {
         const item = GAME.draggedItemType;
         const components = GAME.draggedComponents.length ? GAME.draggedComponents : [item];
         const sourceSlot = GAME.draggedFromSlot;
+        const fromInventory = GAME.draggedFromInventory;
         const targetSlot = event.target.closest('.slot.empty');
         const emptySlot = targetSlot && station.contains(targetSlot)
             ? targetSlot
             : findFirstEmptySlot(station);
 
-        if (!item || !emptySlot || !acceptsItem(item)) {
+        if (!item || !emptySlot || !acceptsItem(item) || (fromInventory && getInventoryCount(item) <= 0)) {
             resetDragState();
             return;
         }
@@ -244,6 +250,10 @@ function installStationDrop(stationId, acceptsItem, onPlaced = () => {}) {
 
         if (sourceSlot && sourceSlot !== emptySlot) {
             clearSlot(sourceSlot);
+        }
+
+        if (fromInventory && typeof consumeInventory === 'function') {
+            consumeInventory(item, 1);
         }
 
         resetDragState();

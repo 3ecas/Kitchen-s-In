@@ -3,81 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Chef Simulator</title>
+    <title>Kitchen's In</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <section class="orders-panel">
-        <div class="station-header"><h2>&#x1F514; Orders</h2></div>
-        <div class="active-orders" id="active-orders"></div>
-    </section>
+    <header class="app-header">
+        <h1>Kitchen's In</h1>
+        <nav class="sector-nav" aria-label="Restaurant sectors">
+            <button class="active" type="button" data-sector="restaurant">Restaurant</button>
+            <button type="button" data-sector="farm">Farm</button>
+            <button type="button" data-sector="animals">Animal Pen</button>
+            <button type="button" data-sector="fishing">Fishing Dock</button>
+            <button type="button" data-sector="warehouse">Warehouse</button>
+        </nav>
+        <div class="header-wallet">&#x1F4B0; <span id="header-coins">0</span></div>
+    </header>
 
-    <div class="game-wrapper">
-        <aside class="sidebar left-sidebar">
-            <div class="score-board"><h2>&#x1F4B0; <span id="coin-count">0</span></h2></div>
-            <h2>&#x1F4DC; Recipes</h2>
-            <div class="recipe-card" id="recipe-list"></div>
-        </aside>
-
-        <aside class="sidebar fridge-column">
-            <h2>&#x2744;&#xFE0F; Fridge</h2>
-            <ul class="ingredient-list" id="fridge-list"></ul>
-        </aside>
-
-        <main class="kitchen-stations">
-            <section class="station" id="station-counter">
-                <div class="station-header"><h2>&#x1F52A; Counter</h2></div>
-                <div class="slots-container" data-station="counter">
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                    <div class="slot empty"></div><div class="slot empty"></div>
-                </div>
+    <main class="sector-shell">
+        <section class="sector-view active" id="view-restaurant" data-view="restaurant">
+            <section class="orders-panel">
+                <h2>&#x1F514; Orders</h2>
+                <div class="active-orders" id="active-orders"></div>
             </section>
 
-            <section class="station" id="station-stove">
-                <div class="station-header"><h2>&#x1F373; Stove</h2></div>
-                <div class="slots-container" data-station="stove">
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                </div>
-            </section>
+            <nav class="window-toolbar" aria-label="Kitchen windows">
+                <button type="button" data-open-window="recipes-window">&#x1F4DC; Recipes</button>
+                <button type="button" data-open-window="fridge-window">&#x2744;&#xFE0F; Fridge</button>
+                <button type="button" data-open-window="station-plate">&#x1F37D;&#xFE0F; Plating</button>
+                <button type="button" id="btn-reset-layout">&#x21BA; Reset Layout</button>
+            </nav>
 
-            <section class="station" id="station-oven">
-                <div class="station-header"><h2>&#x1F525; Oven</h2></div>
-                <div class="slots-container" data-station="oven">
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                </div>
-            </section>
+            <div class="game-workspace" id="game-workspace">
+                <aside class="floating-window utility-window" id="recipes-window">
+                    <div class="window-header panel-handle">
+                        <h2>&#x1F4DC; Recipes</h2>
+                        <button class="window-close" type="button" data-close-window="recipes-window" aria-label="Close Recipes">x</button>
+                    </div>
+                    <div class="window-content">
+                        <div class="score-row">
+                            <strong>&#x1F4B0; <span id="coin-count">0</span></strong>
+                            <div class="rating-board">
+                                <span id="rating-stars" aria-label="Restaurant rating">&#x2606;&#x2606;&#x2606;&#x2606;&#x2606;</span>
+                                <strong id="rating-value">0.0</strong>
+                            </div>
+                        </div>
+                        <div class="recipe-card" id="recipe-list"></div>
+                    </div>
+                </aside>
 
-            <section class="station" id="station-fryer">
-                <div class="station-header"><h2>&#x1F6E2;&#xFE0F; Fryer</h2></div>
-                <div class="slots-container" data-station="fryer">
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                </div>
-            </section>
-        </main>
+                <aside class="floating-window utility-window" id="fridge-window">
+                    <div class="window-header panel-handle">
+                        <h2>&#x2744;&#xFE0F; Fridge</h2>
+                        <button class="window-close" type="button" data-close-window="fridge-window" aria-label="Close Fridge">x</button>
+                    </div>
+                    <div class="window-content">
+                        <ul class="ingredient-list" id="fridge-list"></ul>
+                    </div>
+                </aside>
 
-        <aside class="plating-sidebar">
-            <section class="station" id="station-plate">
-                <div class="station-header"><h2>&#x1F37D;&#xFE0F; Plate</h2></div>
-                <div class="slots-container" data-station="plate">
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                    <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
-                </div>
-                <button class="serve-btn" id="btn-serve">
-                    <span aria-hidden="true">&#x1F37D;&#xFE0F;</span> Serve Dish
-                </button>
-            </section>
-        </aside>
+                <section class="station floating-window station-window" id="station-counter">
+                    <div class="window-header panel-handle"><h2>&#x1F52A; Counter</h2></div>
+                    <div class="slots-container" data-station="counter">
+                        <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                        <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    </div>
+                </section>
+
+                <section class="station floating-window station-window" id="station-stove">
+                    <div class="window-header panel-handle"><h2>&#x1F373; Stove</h2></div>
+                    <div class="slots-container" data-station="stove">
+                        <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    </div>
+                </section>
+
+                <section class="station floating-window station-window" id="station-oven">
+                    <div class="window-header panel-handle"><h2>&#x1F525; Oven</h2></div>
+                    <div class="slots-container" data-station="oven">
+                        <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    </div>
+                </section>
+
+                <section class="station floating-window station-window" id="station-fryer">
+                    <div class="window-header panel-handle"><h2>&#x1F6E2;&#xFE0F; Fryer</h2></div>
+                    <div class="slots-container" data-station="fryer">
+                        <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    </div>
+                </section>
+
+                <section class="station floating-window utility-window" id="station-plate">
+                    <div class="window-header panel-handle">
+                        <h2>&#x1F37D;&#xFE0F; Plating</h2>
+                        <button class="window-close" type="button" data-close-window="station-plate" aria-label="Close Plating">x</button>
+                    </div>
+                    <div class="slots-container" data-station="plate">
+                        <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                        <div class="slot empty"></div><div class="slot empty"></div><div class="slot empty"></div>
+                    </div>
+                    <button class="serve-btn" id="btn-serve" type="button">&#x1F37D;&#xFE0F; Serve Dish</button>
+                </section>
+            </div>
+
+            <div id="floating-trash" class="empty">&#x1F5D1;&#xFE0F;</div>
+        </section>
+
+        <section class="sector-view management-view" id="view-farm" data-view="farm">
+            <div class="sector-heading">
+                <div><p>Production sector</p><h2>Farm</h2></div>
+                <span>Grow crops and collect water for the restaurant.</span>
+            </div>
+            <nav class="sector-window-toolbar" id="farm-toolbar" aria-label="Farm windows"></nav>
+            <div class="sector-workspace window-workspace" id="farm-production"></div>
+        </section>
+
+        <section class="sector-view management-view" id="view-animals" data-view="animals">
+            <div class="sector-heading">
+                <div><p>Production sector</p><h2>Animal Pen</h2></div>
+                <span>Raise animals and collect eggs, dairy, and meat.</span>
+            </div>
+            <nav class="sector-window-toolbar" id="animal-toolbar" aria-label="Animal Pen windows"></nav>
+            <div class="sector-workspace window-workspace" id="animal-production"></div>
+        </section>
+
+        <section class="sector-view management-view" id="view-fishing" data-view="fishing">
+            <div class="sector-heading">
+                <div><p>Production sector</p><h2>Fishing Dock</h2></div>
+                <span>Send boats out and bring fresh fish into storage.</span>
+            </div>
+            <nav class="sector-window-toolbar" aria-label="Fishing windows">
+                <button type="button" data-open-window="fishing-water-window">Fishing Waters</button>
+                <button type="button" data-open-window="fishing-control-window">Fishing Controls</button>
+            </nav>
+            <div class="sector-workspace window-workspace" id="fishing-workspace">
+                <section class="floating-window management-window fishing-water-window" id="fishing-water-window">
+                    <div class="window-header panel-handle">
+                        <h3>Fishing Waters</h3>
+                        <button class="window-close" type="button" data-close-window="fishing-water-window" aria-label="Close Fishing Waters">x</button>
+                    </div>
+                    <div class="fishing-water" aria-hidden="true">&#x1F30A;</div>
+                </section>
+                <section class="floating-window management-window production-card fishing-card" id="fishing-control-window">
+                    <div class="window-header panel-handle">
+                        <h3>Fishing Controls</h3>
+                        <button class="window-close" type="button" data-close-window="fishing-control-window" aria-label="Close Fishing Controls">x</button>
+                    </div>
+                    <div class="production-body">
+                        <div class="production-icon">&#x1F3A3;</div>
+                        <h3>Cast a Net</h3>
+                        <p>Catch 1–3 fish for the warehouse.</p>
+                        <button type="button" data-fish>Start Fishing</button>
+                        <div class="production-progress"><span></span></div>
+                        <small class="production-status">Ready</small>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="sector-view management-view" id="view-warehouse" data-view="warehouse">
+            <div class="sector-heading">
+                <div><p>Central storage</p><h2>Warehouse</h2></div>
+                <span>Review stock and process raw farm products.</span>
+            </div>
+            <nav class="sector-window-toolbar" id="warehouse-toolbar" aria-label="Warehouse windows">
+                <button type="button" data-open-window="warehouse-inventory-window">Inventory</button>
+            </nav>
+            <div class="sector-workspace window-workspace" id="warehouse-workspace">
+                <section class="floating-window management-window warehouse-stock" id="warehouse-inventory-window">
+                    <div class="window-header panel-handle">
+                        <h3>Inventory</h3>
+                        <button class="window-close" type="button" data-close-window="warehouse-inventory-window" aria-label="Close Inventory">x</button>
+                    </div>
+                    <div class="window-content"><div class="inventory-grid" id="warehouse-inventory"></div></div>
+                </section>
+                <div class="window-layer" id="warehouse-production"></div>
+            </div>
+        </section>
+    </main>
+
+    <div class="game-over-overlay hidden" id="game-over-overlay">
+        <div class="game-over-dialog">
+            <h2>Restaurant Closed</h2>
+            <p>Your rating dropped to zero.</p>
+            <button id="btn-restart" type="button">Try Again</button>
+        </div>
     </div>
 
-    <div id="floating-trash" class="empty">&#x1F5D1;&#xFE0F;</div>
-
     <script src="globals.js"></script>
+    <script src="inventory.js"></script>
     <script src="fridge.js"></script>
     <script src="counter.js"></script>
     <script src="stove.js"></script>
@@ -85,6 +197,7 @@
     <script src="fryer.js"></script>
     <script src="plating.js"></script>
     <script src="order_bar.js"></script>
+    <script src="sectors.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

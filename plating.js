@@ -155,11 +155,15 @@ document.getElementById('btn-serve').addEventListener('click', event => {
 
         const { recipe, slots } = servableOrder;
 
-        if (typeof completeOrder === 'function' && !completeOrder(recipe)) {
+        const completedOrder = typeof completeOrder === 'function'
+            ? completeOrder(recipe)
+            : { reward: recipe.reward, serviceStars: 5 };
+
+        if (!completedOrder) {
             break;
         }
 
-        totalReward += recipe.reward;
+        totalReward += completedOrder.reward;
         servedRecipes.push(recipe.name);
         slots.forEach(clearSlot);
         occupiedSlots = occupiedSlots.filter(slot => !slots.includes(slot));
@@ -170,8 +174,12 @@ document.getElementById('btn-serve').addEventListener('click', event => {
         return;
     }
 
-    GAME.coins += totalReward;
-    document.getElementById('coin-count').textContent = GAME.coins;
+    if (typeof addCoins === 'function') {
+        addCoins(totalReward);
+    } else {
+        GAME.coins += totalReward;
+        document.getElementById('coin-count').textContent = GAME.coins;
+    }
     showServeBurst(event.clientX, event.clientY, totalReward);
 });
 
